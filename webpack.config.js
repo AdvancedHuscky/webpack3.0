@@ -10,12 +10,12 @@ module.exports = {
         filename: '[name].bundle.js',
         chunkFilename: '[name].chunk.js'
     },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['common'],
-            minChunk: 2
-        })
-    ],
+    // plugins: [
+    //     new webpack.optimize.CommonsChunkPlugin({
+    //         name: ['common'],
+    //         minChunk: 2
+    //     })
+    // ],
     module: {
         rules: [{
             test: /\.js$/,
