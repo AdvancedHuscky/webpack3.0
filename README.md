@@ -47,3 +47,48 @@ Bundle 打包过得
 Module 模块
 
 ## Webpack 命令
+
+## Babel 相关插件
+
+### Presets
+
+相当于 babel 的辅助工具,帮助配置 babel,根据配置的目标环境自动采用需要的 babel 插件
+
+### polyFill
+
+--save
+垫片，填充器
+全局，就可以在全局进行使用，为开发应用引用（网站，app）而不是为框架使用
+es678 的兼容性
+Generator
+Set
+Map
+Array.form
+
+### Runtime Transform
+
+npm install babel-plugin-transform-runtime --save-dev
+npm install babel-runtime -save
+局部垫片
+为了来开发框架准备
+
+### babel 的 polyfill 和 runtime 的区别
+
+具体项目还是需要使用 babel-polyfill，只使用 babel-runtime 的话，实例方法不能正常工作（例如 "foobar".includes("foo")）；
+
+JavaScript 库和工具可以使用 babel-runtime，在实际项目中使用这些库和工具，需要该项目本身提供 polyfill；
+
+官网是这么说的，那些需要修改内置 api 才能达成的功能，譬如：扩展 String.prototype，给上面增加 includes 方法，就属于修改内置 API 的范畴。这类操作就由 polyfill 提供。
+
+## 打包公共代码
+
+commonChunkPlugin
+options.name or options.names
+options.filename
+options.minChunks
+
+### 场景
+
+单页应用
+单页应用+第三方依赖
+多页应用+第三方依赖+webpack 生成代码
