@@ -163,3 +163,20 @@ use:{
 ##### plugins
 
 allChunks 是否将所有文件打包到一个文件中
+
+#### PostCSS
+
+a tool for transforming css with javascript
+
+安装 postcss postcss-loader
+Autoprefixer(把浏览器的前缀加上)
+postcss-cssnano（压缩 css）(等同于 css-loader minimize 选项)
+css-next （use tomorrow's CSS syntax,today）(新语法： CSS Variables,custom selectors,cal())
+postcss-import
+postcss-url
+post-assets
+
+### Browserslist
+
+让所有插件公用一套浏览器规则
+可以直接在 package.json 中直接引用，也可以使用 .browserslistrc

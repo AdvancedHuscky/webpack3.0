@@ -32,7 +32,7 @@ module.exports = {
             {
                 test: /\.sass/,
                 fallback: {
-                    loader: 'style-loader',
+                    loader: 'sass-loader',
                     options: {
                         singleton: true,
                         //transform:'./css.transform.js'
@@ -51,6 +51,16 @@ module.exports = {
                             minimize: true,
                             modules: true,
                             localIdentName: '[path][name]_[local]-[hash:5].css'
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: [
+                                require('autoprefixer')(),
+                                require('postcss-cssnext')(),
+                            ]
                         }
                     }
                 ]
