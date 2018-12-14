@@ -71,6 +71,7 @@ npm install babel-plugin-transform-runtime --save-dev
 npm install babel-runtime -save
 局部垫片
 为了来开发框架准备
+避免在每个文件插入辅助代码，是代码体积过大
 
 ### babel 的 polyfill 和 runtime 的区别
 
@@ -151,6 +152,8 @@ ExtractTextWebpackPlugin
 
 ##### extract
 
+对于生产环境构建，建议从 bundle 中提取 CSS，以便之后可以并行加载 CSS/JS 资源。可以通过使用 extract-text-webpack-plugin 来实现，在生产环境模式运行中提取 CSS。
+
 extract({
 fallback:{
 loader://告诉 webpack 如果不提取的时候使用什么 loader 来处理
@@ -180,3 +183,13 @@ post-assets
 
 让所有插件公用一套浏览器规则
 可以直接在 package.json 中直接引用，也可以使用 .browserslistrc
+
+## Tree Shaking
+
+使用场景：常规优化 引入第三方库的某一个功能
+new Webpack.optimize.UglifyJsPlugin()
+第三方库：有些支持直接使用上面的插件，有些则不支持，因为不是模块化的写法
+以 lodash 为例，实现如何 treeShaking
+not working
+lodash-es not working
+babel-plugin-lodash working
