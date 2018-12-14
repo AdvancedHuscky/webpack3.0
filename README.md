@@ -92,3 +92,74 @@ options.minChunks
 单页应用
 单页应用+第三方依赖
 多页应用+第三方依赖+webpack 生成代码
+
+### 代码分割和懒加载
+
+动态 import，在引入的时候就已经执行
+魔法注释
+import（/_ webpackChunkName:'subPageA'_/'./subPageA').then(()=>{
+console.log(subPageA)
+})
+import.then()
+
+### 处理 CSS
+
+步骤：引入 ---- CSS modules ---- 配置 less/sass ---- 提取 CSS 代码
+
+#### 引入
+
+##### style-loader(创建标签)
+
+###### options
+
+insertAt(插入位置)
+insertInto(插入到 dom)（）
+singleton(是否只是用一个 style 标签)
+transform（转化，浏览器环境下，插入页面前）（直接改变 css 样式）
+
+style-loader/url (是否以 link 方式引入）
+style-loader/useable（引用或不引用，开关）
+
+##### css-loader（让 js import css）
+
+###### options
+
+alias(解析的别名)
+importLoader(@import)
+Minimize(是否压缩)
+modules（启用 css-modules)
+localIdentName(给 className 设置别名)
+
+#### css-modules
+
+:local
+:global
+compose
+compose ... from path
+
+#### 配置 less/sass
+
+直接在 style-loader,css-loader 后面增加相应的 loader 即可
+注意：这些 loader 同样需要上面两个 loader 做进一步的解析
+
+#### 提取 css 文件
+
+extract-loader
+ExtractTextWebpackPlugin
+插件最终要将文件提交给 loader 处理所以，不仅要引入 plugin 还要在 loader 中进行定义
+提取出来的文件不会自动插入到 html 文件中，需要手动引入
+
+##### extract
+
+extract({
+fallback:{
+loader://告诉 webpack 如果不提取的时候使用什么 loader 来处理
+},
+use:{
+//继续使用其他的 loader
+}
+})
+
+##### plugins
+
+allChunks 是否将所有文件打包到一个文件中

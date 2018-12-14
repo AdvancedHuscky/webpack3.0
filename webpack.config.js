@@ -1,34 +1,65 @@
 const path = require('path')
-const webpack = require('webpack')
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
+
 module.exports = {
     entry: {
-        'pageA': path.join(__dirname, 'src/pageA.js')
-        //app: path.join(__dirname, 'app.js')
+        app: './src/app.js'
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].chunk.js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].bundle.js'
     },
-    // plugins: [
-    //     new webpack.optimize.CommonsChunkPlugin({
-    //         name: ['common'],
-    //         minChunk: 2
-    //     })
-    // ],
     module: {
         rules: [{
-            test: /\.js$/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: [
-                        '@babel/preset-env'
-                    ]
-                },
-
+                test: /\.css$/,
+                use: [{
+                        loader: 'style-loader',
+                        options: {
+                            singleton: true,
+                            //transform:'./css.transform.js'
+                        }
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            minimize: true,
+                            modules: true,
+                            localIdentName: '[path][name]_[local]-[hash:5].css'
+                        }
+                    }
+                ]
             },
-            exclude: '/node_modules/'
-        }]
-    }
+            {
+                test: /\.sass/,
+                fallback: {
+                    loader: 'style-loader',
+                    options: {
+                        singleton: true,
+                        //transform:'./css.transform.js'
+                    }
+                },
+                use: [{
+                        loader: 'style-loader',
+                        options: {
+                            singleton: true,
+                            //transform:'./css.transform.js'
+                        }
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            minimize: true,
+                            modules: true,
+                            localIdentName: '[path][name]_[local]-[hash:5].css'
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new ExtractTextWebpackPlugin({
+            filename: '[name].min.css'
+        })
+    ]
 }
