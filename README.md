@@ -193,3 +193,12 @@ new Webpack.optimize.UglifyJsPlugin()
 not working
 lodash-es not working
 babel-plugin-lodash working
+
+## purify css
+
+options
+path:glob.sync([])
+npm i purify-webpack global-all -D
+无法与 css modules 一起使用，需要增加相应的配置
+
+##
