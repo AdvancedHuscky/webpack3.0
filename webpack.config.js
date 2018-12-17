@@ -59,12 +59,53 @@ module.exports = {
                             ident: 'postcss',
                             plugins: [
                                 require('autoprefixer')(),
-                                require('postcss-cssnext')(),
+                                require('postcss-cssnext')(), //使用下一代的新的css技术，语法
+                                require('postcss-sprite')({
+                                    spritePath: 'dist/assets/imgs/sprites', //输出路径
+                                    retina: true //处理苹果retina 屏幕，高清的视网膜屏幕，需要更改图片的名称 1@2x.png 2@2x.jpg
+                                })
                             ]
                         }
                     }
                 ]
+            },
+            {
+                {
+                    test: /\.jpg$/,
+                    use: [{
+                        loader: 'url-loader',
+                        options: {
+                            name: '[name].min.[ext]',
+                            limit: 10000,
+                            publicPath: '',
+                            outputPath: './dist',
+                            useRelativePath: true
+                        }
+                    }, {
+                        loader: 'image-loader',
+                        options: {
+                            pngquant: {
+                                quality: 80
+                            }
+                        }
+                    }]
+                }
+            },
+            {
+                test: /\.(eot|woff2|woff|ttf|svg)/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        name: '[name]-[hash:5].[ext]',
+                        publicPath: '',
+                        limit: 10000,
+                        publicPath: '',
+                        outputPath: './dist',
+                        useRelativePath: true
+                    }
+                }]
             }
+
         ]
     },
     plugins: [

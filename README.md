@@ -201,4 +201,90 @@ path:glob.sync([])
 npm i purify-webpack global-all -D
 无法与 css modules 一起使用，需要增加相应的配置
 
-##
+## 文件处理
+
+### 图片处理
+
+CSS 中引入的图片
+自动合成雪碧图
+压缩图片
+Base64 编码
+
+file-loader
+url-loader
+img-loader（图片压缩）
+postcss-sprite
+
+字体文件
+第三方 JS 库
+
+### 字体文件
+
+与图片文件类似，建议将字体文件下载到本地
+url-loader
+
+### 第三方库
+
+一般在 CDN 远程库中
+
+有时候在本项目中，特别常用，不希望一直引用,使用以下三个方式进行引入
+
+-   webpack.providePlugin
+-   imports-loader
+-   全局引入
+
+## HTML in webpack
+
+### 自动生成 HTML
+
+HtmlWebpackPlugin
+
+#### options
+
+-   template 以文件作为基准
+-   filename 文件名称
+-   minify 压缩
+-   chunks(多页面应用程序)
+-   inject
+    场景优化（html 中引入图片等）
+
+### html 中引入图片
+
+方法一：
+html-loader
+
+#### options
+
+attrs:[img:src]
+
+方法二：
+<img src="require(./assets/img/img.jpg)"/>>
+
+### 配合优化
+
+提前载入 webpack 加载代码
+inline-manifest-webpack-plugin（和 html-loader 配合会有 bug）
+html-webpack-inline-chunk-plugin(推荐使用)
+
+# 开发环境
+
+搭建本地开发环境的意义：可以保持与线上环境的相似度，帮助更好的调试代码，无论是请求接口还是加载资源都是通过 http 请求来做的
+
+-   webpack watch mode
+-   webpack-dev-server(官方提供)
+-   express+webpack-dev-middleware(灵活，但是更加复杂)
+
+## webpack watch mode
+
+webpack -watch
+webpack -w
+
+### clean
+
+安装 clean-webpack-plugin，每次 build 之前清除之前的文件
+在插件里面配置新的实例
+new CleanWebpackPlugin(['dist'])
+
+webpack -w --progress --display-reasons --color 更加清晰地看到 webpack 打包的过程
+
+缺点：需要自己在本地搭建 web 服务器，才能看到相应请求的资源
